@@ -197,3 +197,7 @@ set statusline +=%=[\ %{&ff},\ %{&ft}\ ]\ \ \
 set statusline +=[\ a=\%03.3b\ ]\ \ \ [\ h=0x\%02.2B\ ]\ \ \ [\ %l,\ %v\ ]
  
 "set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
+
+
+" Enable mouse in all modes
+set mouse=a
