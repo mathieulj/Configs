@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: 
 "       Amir Salihefendic
 "       http://amix.dk - amix@amix.dk
@@ -39,6 +39,19 @@
 "    -> Helper functions
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" Code completion
+" Disable preview scratch window
+set completeopt=menu,menuone,longest
+" Limit popup menu height
+set pumheight=15
+
+" SuperTab option for context aware completiong
+let g:SuperTabDefaultCompletionType = "context"
+
+let g:clang_complete_auto = 1
+let g:clang_complete_copen = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -197,7 +210,6 @@ set statusline +=%=[\ %{&ff},\ %{&ft}\ ]\ \ \
 set statusline +=[\ a=\%03.3b\ ]\ \ \ [\ h=0x\%02.2B\ ]\ \ \ [\ %l,\ %v\ ]
  
 "set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
-
 
 " Enable mouse in all modes
 set mouse=a
