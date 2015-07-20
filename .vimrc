@@ -164,15 +164,6 @@ set t_vb=
 set tm=500
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
-
-colorscheme desert
-set background=dark
-"highlight Normal ctermfg=grey ctermbg=black
 
 " " Set extra options when running in GUI mode
 " if has("gui_running")
@@ -228,7 +219,7 @@ set wrap "Wrap lines
 "set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
 set colorcolumn=90
-hi colorColumn ctermbg=3
+hi colorColumn ctermbg=3 ctermfg=0
 
 set laststatus=2
 "set statusline=
@@ -264,3 +255,18 @@ set statusline+=\ %P    "percent through file
 
 " Enable mouse in all modes
 set mouse=a
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable
+
+colorscheme desert
+set background=dark
+"highlight Normal ctermfg=grey ctermbg=black
+hi TabLineFill term=reverse cterm=reverse gui=reverse
+hi TabLine term=reverse cterm=reverse gui=reverse
+hi TabLineSel term=bold,underline cterm=bold,underline gui=bold,underline
+hi Title ctermfg=2 ctermbg=0
