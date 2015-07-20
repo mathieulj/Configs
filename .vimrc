@@ -70,8 +70,8 @@ let g:clang_user_options=' -std=c++11 || exit 0'
 " convenient IMO, and it defaults to 0.
 let g:clang_auto_select=1
 
-set conceallevel=2
-set concealcursor=vin
+"set conceallevel=2
+"set concealcursor=vin
 let g:clang_snippets=1
 let g:clang_conceal_snippets=1
 " The single one that works with clang_complete
@@ -84,7 +84,7 @@ set ignorecase		" Do case insensitive matching
 set smartcase		" Do smart case matching
 set incsearch		" Incremental search
 set autowrite		" Automatically save before commands like :next and :make
-set hidden		" Hide buffers when they are abandoned
+"set hidden		" Hide buffers when they are abandoned
 set mouse=a		" Enable mouse usage (all modes)
 
 " Set to auto read when a file is changed from the outside
@@ -113,10 +113,10 @@ set wildignore=*.o,*~,*.pyc
 set ruler
 
 " Height of the command bar
-"set cmdheight=2
+set cmdheight=2
 
 " A buffer becomes hidden when it is abandoned
-set hid
+"set hid
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -214,7 +214,7 @@ set wrap "Wrap lines
 
 "set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
-set colorcolumn=85
+set colorcolumn=90
 hi colorColumn ctermbg=3
 
 set laststatus=2
@@ -231,10 +231,22 @@ set laststatus=2
 
 "set statusline =%M%h%y\ %t\ %F\ %p%%\ %l/%L\ 
 set statusline =%F\ \ \ %p%%\ \ \ %l/%L\ \ \ 
-"set statusline +=\ \ \ \ \ \ %{strftime('%a\ %b\ %e\ %I:%M\ %p')}
 set statusline +=%=[\ %{&ff},\ %{&ft}\ ]\ \ \ 
 set statusline +=[\ a=\%03.3b\ ]\ \ \ [\ h=0x\%02.2B\ ]\ \ \ [\ %l,\ %v\ ]
- 
+
+set statusline=%t       "tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%y      "filetype
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+
+
 "set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
 
