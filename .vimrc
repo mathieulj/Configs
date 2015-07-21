@@ -90,6 +90,8 @@ let g:clang_conceal_snippets=1
 " The single one that works with clang_complete
 let g:clang_snippets_engine='clang_complete'
 
+imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -270,3 +272,8 @@ hi TabLineFill term=reverse cterm=reverse gui=reverse
 hi TabLine term=reverse cterm=reverse gui=reverse
 hi TabLineSel term=bold,underline cterm=bold,underline gui=bold,underline
 hi Title ctermfg=2 ctermbg=0
+
+"hi Pmenu    cterm=bold ctermbg=5 ctermfg=0  
+"hi PmenuSel cterm=bold ctermbg=5 ctermfg=7  
+"hi PmenuSbar cterm=bold ctermbg=5 ctermfg=7  
+"hi PmenuThumb cterm=bold ctermbg=5 ctermfg=7  

@@ -10,3 +10,6 @@
 [submodule "bundle/dot-vim"]
 	path = bundle/dot-vim
 	url = git@github.com:mireq/dot-vim.git
+[submodule "bundle/YouCompleteMe"]
+	path = bundle/YouCompleteMe
+	url = git://github.com/Valloric/YouCompleteMe.git
