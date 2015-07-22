@@ -142,5 +142,6 @@ else
     echo "Error, unknown parameter $1"
 fi
 
+#ln -s /usr/lib/x86_64-linux-gnu/libclang.so.1 /usr/lib/x86_64-linux-gnu/libclang.so
 #sudo apt-get install vim-scripts vim-youcompleteme
 #vim-addon-manager install youcompleteme doxygen-toolkit
