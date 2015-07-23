@@ -43,6 +43,7 @@ function install(){
     installFile c.vim .vim/syntax/
     installFile cpp.vim .vim/syntax/
     installFile bundle/vim-colors-solarized/colors/solarized.vim .vim/colors/
+    installFile bundle/vim-javascript-syntax/syntax/javascript.vim .vim/syntax/
     installFile tmx bin/
     installFile topProcs bin/
    
@@ -62,6 +63,7 @@ function uninstall(){
     uninstallFile c.vim .vim/syntax/
     uninstallFile cpp.vim .vim/syntax/
     uninstallFile bundle/vim-colors-solarized/colors/solarized.vim .vim/colors/
+    uninstallFile bundle/vim-javascript-syntax/syntax/javascript.vim .vim/syntax/
     uninstallFile tmx bin/
     uninstallFile topProcs bin/
    

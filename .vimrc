@@ -57,6 +57,7 @@ nmap <leader>f :Dox<cr>
 " Browse directory of current file
 nmap <leader>b :Ex %:p:h/<cr>
 
+au FileType javascript call JavaScriptFold()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
