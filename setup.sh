@@ -14,10 +14,68 @@ DEPENDS+=$'vim-snipmate\n'
 DEPENDS+=$'vim-scripts\n'
 DEPENDS+=$'vim-addon-manager'
 
+function main(){
 if [ $# -ne 1 ]; then
     echo "Error, expects exactly parameter of install or uninstall."
     exit
 fi
+
+if [ $1 == "install" ]; then
+    install
+elif [ $1 == "uninstall" ]; then
+    uninstall
+else
+    echo "Error, unknown parameter $1"
+fi
+}
+
+function install(){
+    echo "Running installation."
+    mkdir -p $BACKUP || exit 1;
+
+    echo "Pulling all git submodules."
+    git submodule update --init --recursive
+
+    installFile .profile
+    installFile .tmux.conf
+    installFile .vimrc
+    installFile .bash_aliases
+    installFile c.vim .vim/syntax/
+    installFile cpp.vim .vim/syntax/
+    installFile bundle/vim-colors-solarized/colors/solarized.vim .vim/colors/
+    installFile tmx bin/
+    installFile topProcs bin/
+   
+    
+    installDepends
+    vim-addon-manager install youcompleteme doxygen-toolkit || exit 1;
+    echo
+    echo "Action succesfully applied"
+}
+
+function uninstall(){
+    echo "Running uninstallation"
+    uninstallFile .profile
+    uninstallFile .tmux.conf
+    uninstallFile .vimrc
+    uninstallFile .bash_aliases
+    uninstallFile c.vim .vim/syntax/
+    uninstallFile cpp.vim .vim/syntax/
+    uninstallFile bundle/vim-colors-solarized/colors/solarized.vim .vim/colors/
+    uninstallFile tmx bin/
+    uninstallFile topProcs bin/
+   
+    echo
+    echo Note that dependecies installed through apt-get and vim-addon-manager are not automatically removed.
+    echo
+    echo apt-get :
+    echo "$DEPENDS"
+    echo 
+    echo vim-addon-manager :
+    echo youcompleteme doxygen-toolkit 
+    echo
+    echo Action succesfully applied
+}
 
 function backupFile(){
     echo "Saving a backup copy of $1"
@@ -94,53 +152,7 @@ function installDepends()
     fi
 }
 
-if [ $1 == "install" ]; then
-    echo "Running installation."
-    mkdir -p $BACKUP || exit 1;
-
-    echo "Pulling all git submodules."
-    git submodule update --init --recursive
-
-    installFile .profile
-    installFile .tmux.conf
-    installFile .vimrc
-    installFile .bash_aliases
-    installFile c.vim .vim/syntax/
-    installFile cpp.vim .vim/syntax/
-    installFile bundle/vim-colors-solarized/colors/solarized.vim .vim/colors/
-    installFile tmx bin/
-    installFile topProcs bin/
-   
-    
-    installDepends
-    vim-addon-manager install youcompleteme doxygen-toolkit || exit 1;
-    echo
-    echo "Action succesfully applied"
-elif [ $1 == "uninstall" ]; then
-    echo "Running uninstallation"
-    uninstallFile .profile
-    uninstallFile .tmux.conf
-    uninstallFile .vimrc
-    uninstallFile .bash_aliases
-    uninstallFile c.vim .vim/syntax/
-    uninstallFile cpp.vim .vim/syntax/
-    uninstallFile bundle/vim-colors-solarized/colors/solarized.vim .vim/colors/
-    uninstallFile tmx bin/
-    uninstallFile topProcs bin/
-   
-    echo
-    echo Note that dependecies installed through apt-get and vim-addon-manager are not automatically removed.
-    echo
-    echo apt-get :
-    echo "$DEPENDS"
-    echo 
-    echo vim-addon-manager :
-    echo youcompleteme doxygen-toolkit 
-    echo
-    echo Action succesfully applied
-else
-    echo "Error, unknown parameter $1"
-fi
+main $@
 
 #ln -s /usr/lib/x86_64-linux-gnu/libclang.so.1 /usr/lib/x86_64-linux-gnu/libclang.so
 #sudo apt-get install vim-scripts vim-youcompleteme
