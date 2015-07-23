@@ -54,6 +54,10 @@ nmap <leader>a :DoxAuthor<cr>
 " Doxygen function header
 nmap <leader>f :Dox<cr>
 
+" Browse directory of current file
+nmap <leader>b :Ex %:p:h/<cr>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -141,7 +145,7 @@ set number
 
 set colorcolumn=90
 
-"set laststatus=2
+set statusline=%t\  "file name 
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%h      "help file flag

@@ -21,10 +21,14 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -e /usr/share/terminfo/x/xterm+256color ]; then
-    export TERM='xterm+256color'
+if [ -e /usr/share/terminfo/x/xterm ]; then
+    export TERM='xterm'
+elif [ -e /usr/share/terminfo/g/gnome ]; then
+    export TERM='gnome'
 elif [ -e /usr/share/terminfo/x/xterm-256color ]; then
     export TERM='xterm-256color'
+elif [ -e /usr/share/terminfo/x/xterm+256color ]; then
+    export TERM='xterm+256color'
 else
     export TERM='xterm-color'
 fi
