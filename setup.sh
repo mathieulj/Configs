@@ -46,7 +46,10 @@ function install(){
     installFile bundle/vim-javascript-syntax/syntax/javascript.vim .vim/syntax/
     installFile tmx bin/
     installFile topProcs bin/
-   
+    installFile bundle/vim-airline/autoload/airline .vim/autoload/
+    installFile bundle/vim-airline/autoload/airline.vim .vim/autoload/
+    installFile bundle/vim-airline/plugin/airline.vim .vim/plugin/airline/
+    installFile bundle/vim-airline/t .vim/
     
     installDepends
     vim-addon-manager install youcompleteme doxygen-toolkit || exit 1;
@@ -66,6 +69,10 @@ function uninstall(){
     uninstallFile bundle/vim-javascript-syntax/syntax/javascript.vim .vim/syntax/
     uninstallFile tmx bin/
     uninstallFile topProcs bin/
+    uninstallFile bundle/vim-airline/autoload/airline .vim/autoload/
+    uninstallFile bundle/vim-airline/autoload/airline.vim .vim/autoload/
+    uninstallFile bundle/vim-airline/plugin/airline.vim .vim/plugin/airline/
+    uninstallFile bundle/vim-airline/t .vim/
    
     echo
     echo Note that dependecies installed through apt-get and vim-addon-manager are not automatically removed.
