@@ -146,6 +146,8 @@ set number
 
 set colorcolumn=90
 
+let g:airline_powerline_fonts = 1
+
 "set statusline=%t\  "file name 
 "set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 "set statusline+=%{&ff}] "file format

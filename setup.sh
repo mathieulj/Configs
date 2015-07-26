@@ -12,6 +12,8 @@ DEPENDS+=$'vim-youcompleteme\n'
 DEPENDS+=$'vim-snippets\n'
 DEPENDS+=$'vim-snipmate\n'
 DEPENDS+=$'vim-scripts\n'
+DEPENDS+=$'fonts-powerline\n'
+#DEPENDS+=$'powerline\n'
 DEPENDS+=$'vim-addon-manager'
 
 function main(){
@@ -50,7 +52,12 @@ function install(){
     installFile bundle/vim-airline/autoload/airline.vim .vim/autoload/
     installFile bundle/vim-airline/plugin/airline.vim .vim/plugin/airline/
     installFile bundle/vim-airline/t .vim/
-    
+    installFile bundle/powerline/raw/develop/font/PowerlineSymbols.otf .fonts/
+    installFile bundle/powerline/raw/develop/font/10-powerline-symbols.conf .config/fontconfig/conf.d/
+    installFile bundle/vim-fugitive/plugin/fugitive.vim .vim/plugin/
+
+    sudo fc-cache -vf ~/.fonts
+
     installDepends
     vim-addon-manager install youcompleteme doxygen-toolkit || exit 1;
     echo
@@ -73,6 +80,11 @@ function uninstall(){
     uninstallFile bundle/vim-airline/autoload/airline.vim .vim/autoload/
     uninstallFile bundle/vim-airline/plugin/airline.vim .vim/plugin/airline/
     uninstallFile bundle/vim-airline/t .vim/
+    uninstallFile bundle/powerline/raw/develop/font/PowerlineSymbols.otf .fonts/
+    uninstallFile bundle/powerline/raw/develop/font/10-powerline-symbols.conf .config/fontconfig/conf.d/
+    uninstallFile bundle/vim-fugitive/plugin/fugitive.vim .vim/plugin/
+
+    sudo fc-cache -vf ~/.fonts
    
     echo
     echo Note that dependecies installed through apt-get and vim-addon-manager are not automatically removed.
