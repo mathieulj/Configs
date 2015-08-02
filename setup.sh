@@ -66,6 +66,7 @@ function install(){
     installBundle vim-airline
     installBundle vim-fugitive
     installBundle nerdtree
+    installBundle nerdtree-git-plugin
 
     echo "Updating font cache."
     sudo fc-cache -vf ~/.fonts || exit 1;
@@ -98,6 +99,7 @@ function uninstall(){
     uninstallBundle vim-airline
     uninstallBundle vim-fugitive
     uninstallBundle nerdtree
+    uninstallBundle nerdtree-git-plugin
 
     echo "Updating font cache."
     sudo fc-cache -vf ~/.fonts || exit 1;
