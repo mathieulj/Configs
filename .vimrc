@@ -46,8 +46,8 @@ set laststatus=2
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = " "
+let g:mapleader = " "
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -66,6 +66,16 @@ nmap <leader>b :Ex %:p:h/<cr>
 
 " Quick project build 
 nmap <leader>m :make<cr>
+
+" Open nerdtree
+nmap <leader>t :NERDTree<cr>
+
+" Buffer navigation
+nmap <leader>k :bnext<cr>
+nmap <leader>j :bprevious<cr>
+nmap <leader>c :bprevious<cr> :bdelete #<cr>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
