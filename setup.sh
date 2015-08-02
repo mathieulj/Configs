@@ -50,8 +50,9 @@ function install(){
     installFile .tmux.conf
     installFile .vimrc
     installFile .bash_aliases
-    installFile c.vim .vim/syntax/
-    installFile cpp.vim .vim/syntax/
+    installFile syntax/c.vim .vim/syntax/
+    installFile syntax/cpp.vim .vim/syntax/
+    installFile syntax/javascript.vim .vim/syntax/
     installFile tmx bin/
     installFile topProcs bin/
     
@@ -64,6 +65,7 @@ function install(){
     installBundle vim-colors-solarized
     installBundle vim-airline
     installBundle vim-fugitive
+    installBundle nerdtree
 
     echo "Updating font cache."
     sudo fc-cache -vf ~/.fonts || exit 1;
@@ -80,8 +82,9 @@ function uninstall(){
     uninstallFile .tmux.conf
     uninstallFile .vimrc
     uninstallFile .bash_aliases
-    uninstallFile c.vim .vim/syntax/
-    uninstallFile cpp.vim .vim/syntax/
+    uninstallFile syntax/c.vim .vim/syntax/
+    uninstallFile syntax/cpp.vim .vim/syntax/
+    uninstallFile syntax/javascript.vim .vim/syntax/
     uninstallFile tmx bin/
     uninstallFile topProcs bin/
 
@@ -94,6 +97,7 @@ function uninstall(){
     uninstallBundle vim-colors-solarized
     uninstallBundle vim-airline
     uninstallBundle vim-fugitive
+    uninstallBundle nerdtree
 
     echo "Updating font cache."
     sudo fc-cache -vf ~/.fonts || exit 1;
