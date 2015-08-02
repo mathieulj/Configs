@@ -14,6 +14,7 @@ DEPENDS+=$'vim-snipmate\n'
 DEPENDS+=$'vim-scripts\n'
 DEPENDS+=$'fonts-powerline\n'
 #DEPENDS+=$'powerline\n'
+DEPENDS+=$'vim-pathogen\n'
 DEPENDS+=$'vim-addon-manager'
 
 function main(){
@@ -26,6 +27,8 @@ if [ $1 == "install" ]; then
     install
 elif [ $1 == "uninstall" ]; then
     uninstall
+elif [ $1 == "test" ]; then
+    installBundle vim-airline
 else
     echo "Error, unknown parameter $1"
 fi
@@ -34,57 +37,66 @@ fi
 function install(){
     echo "Running installation."
     mkdir -p $BACKUP || exit 1;
+    
+    echo "Installing dependecies."
+    installDepends
+    vim-addon-manager install youcompleteme doxygen-toolkit pathogen || exit 1;
 
     echo "Pulling all git submodules."
-    git submodule update --init --recursive
+    git submodule update --init --recursive || exit 1;
 
+    echo "Installing individual files."
     installFile .profile
     installFile .tmux.conf
     installFile .vimrc
     installFile .bash_aliases
     installFile c.vim .vim/syntax/
     installFile cpp.vim .vim/syntax/
-    installFile bundle/vim-colors-solarized/colors/solarized.vim .vim/colors/
-    installFile bundle/vim-javascript-syntax/syntax/javascript.vim .vim/syntax/
     installFile tmx bin/
     installFile topProcs bin/
-    installFile bundle/vim-airline/autoload/airline .vim/autoload/
-    installFile bundle/vim-airline/autoload/airline.vim .vim/autoload/
-    installFile bundle/vim-airline/plugin/airline.vim .vim/plugin/airline/
-    installFile bundle/vim-airline/t .vim/
-    installFile bundle/powerline/raw/develop/font/PowerlineSymbols.otf .fonts/
-    installFile bundle/powerline/raw/develop/font/10-powerline-symbols.conf .config/fontconfig/conf.d/
-    installFile bundle/vim-fugitive/plugin/fugitive.vim .vim/plugin/
+    
+    echo "Installing powerline font support."
+    installFile bundle/powerline/font/PowerlineSymbols.otf .fonts/
+    installFile bundle/powerline/font/10-powerline-symbols.conf .config/fontconfig/conf.d/
+    
+    echo "Installing vim bundles."
+    installBundle vim-javascript-syntax
+    installBundle vim-colors-solarized
+    installBundle vim-airline
+    installBundle vim-fugitive
 
-    sudo fc-cache -vf ~/.fonts
+    echo "Updating font cache."
+    sudo fc-cache -vf ~/.fonts || exit 1;
 
-    installDepends
-    vim-addon-manager install youcompleteme doxygen-toolkit || exit 1;
     echo
     echo "Action succesfully applied"
 }
 
 function uninstall(){
     echo "Running uninstallation"
+    
+    echo "Uninstalling individual files."
     uninstallFile .profile
     uninstallFile .tmux.conf
     uninstallFile .vimrc
     uninstallFile .bash_aliases
     uninstallFile c.vim .vim/syntax/
     uninstallFile cpp.vim .vim/syntax/
-    uninstallFile bundle/vim-colors-solarized/colors/solarized.vim .vim/colors/
-    uninstallFile bundle/vim-javascript-syntax/syntax/javascript.vim .vim/syntax/
     uninstallFile tmx bin/
     uninstallFile topProcs bin/
-    uninstallFile bundle/vim-airline/autoload/airline .vim/autoload/
-    uninstallFile bundle/vim-airline/autoload/airline.vim .vim/autoload/
-    uninstallFile bundle/vim-airline/plugin/airline.vim .vim/plugin/airline/
-    uninstallFile bundle/vim-airline/t .vim/
-    uninstallFile bundle/powerline/raw/develop/font/PowerlineSymbols.otf .fonts/
-    uninstallFile bundle/powerline/raw/develop/font/10-powerline-symbols.conf .config/fontconfig/conf.d/
-    uninstallFile bundle/vim-fugitive/plugin/fugitive.vim .vim/plugin/
 
-    sudo fc-cache -vf ~/.fonts
+    echo "Uninstalling powerline font support."
+    uninstallFile bundle/powerline/font/PowerlineSymbols.otf .fonts/
+    uninstallFile bundle/powerline/font/10-powerline-symbols.conf .config/fontconfig/conf.d/
+
+    echo "Uninstalling vim bundles."
+    uninstallBundle vim-javascript-syntax
+    uninstallBundle vim-colors-solarized
+    uninstallBundle vim-airline
+    uninstallBundle vim-fugitive
+
+    echo "Updating font cache."
+    sudo fc-cache -vf ~/.fonts || exit 1;
    
     echo
     echo Note that dependecies installed through apt-get and vim-addon-manager are not automatically removed.
@@ -118,20 +130,62 @@ function installFile(){
     DSTDIR=$HOME/$2
     DST=$DSTDIR$(basename $1)
     echo
-    echo "Attempting to install file $SRC to $DST"
+    echo "Attempting to install file \"$SRC\" to \"$DST\""
+
     # create destination dir if it does not exist
     mkdir -p $DSTDIR || exit 1;     
 
-    if [ -e $DST ]; then
-        if [ -h $DST ]; then
-            echo "Symlink detected, updating it."
-            rm $DST
-        else
-            echo "File already exists."
-            backupFile $DST
-        fi
+    if [ ! -e $SRC ]; then 
+        echo "Error, \"$SRC\" does not exist, upstream may have changed something."
+        exit 1;
     fi
+
+    if [ -h $DST ]; then
+        echo "Symlink detected, updating it."
+        rm $DST || exit 1;
+    elif [ -e $DST ]; then
+        echo "File already exists."
+        backupFile $DST
+    fi
+    
     ln -s $SRC $DST || exit 1
+}
+
+function installBundle(){
+    SRC=$PWD/bundle/$1
+    DSTDIR=$HOME/.vim/bundle
+    DST=$DSTDIR/$1
+    echo 
+    echo "Installing bundle $1."
+
+    mkdir -p $DSTDIR || exit 1;
+
+    if [ -h $DST ]; then
+        echo "Symlink detected, updating it."
+        rm $DST || exit 1;
+    elif [ -e $DST ]; then
+        echo "Error, regular file with same name detected in bundle directory."
+        exit 1;
+    fi
+
+    ln -s $SRC $DST || exit 1
+}
+
+function uninstallBundle(){
+    SRC=$PWD/bundle/$1
+    DSTDIR=$HOME/.vim/bundle
+    DST=$DSTDIR/$1
+    echo 
+    echo "Uninstalling bundle $1."
+
+    if [ -h $DST ]; then
+        echo "Symlink detected, removing it."
+        rm $DST
+    elif [ -e $DST ]; then
+        echo "Regular file detected, leaving it alone."
+    else
+        echo "Nothing to be done."
+    fi
 }
 
 function uninstallFile(){

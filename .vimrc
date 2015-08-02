@@ -4,6 +4,13 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin loading
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" This looks scary, I dont like to wording ether but apparently 
+" they like to have fun with names
+execute pathogen#infect()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
@@ -57,8 +64,8 @@ nmap <leader>f :Dox<cr>
 " Browse directory of current file
 nmap <leader>b :Ex %:p:h/<cr>
 
-au FileType javascript call JavaScriptFold()
-
+" Quick project build 
+nmap <leader>m :make<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -146,7 +153,14 @@ set number
 
 set colorcolumn=90
 
+" Airline use fancy fonts
 let g:airline_powerline_fonts = 1
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 "set statusline=%t\  "file name 
 "set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
