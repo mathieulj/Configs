@@ -52,6 +52,9 @@ let g:mapleader = " "
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" Fast closing
+nmap <leader>q :q<cr>
+
 " vimrc reload
 nmap <leader>r :so ~/.vimrc<cr>
 
@@ -75,6 +78,11 @@ nmap <leader>k :bnext<cr>
 nmap <leader>j :bprevious<cr>
 nmap <leader>c :bprevious<cr> :bdelete #<cr>
 
+" Pane navigation
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>
+nmap <C-L> <C-W><C-L>
+nmap <C-H> <C-W><C-H>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface

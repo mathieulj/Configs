@@ -16,6 +16,7 @@ DEPENDS+=$'fonts-powerline\n'
 #DEPENDS+=$'powerline\n'
 DEPENDS+=$'vim-pathogen\n'
 DEPENDS+=$'vim-addon-manager'
+SUDO='su -c'
 
 function main(){
 if [ $# -ne 1 ]; then
@@ -69,7 +70,7 @@ function install(){
     installBundle nerdtree-git-plugin
 
     echo "Updating font cache."
-    sudo fc-cache -vf ~/.fonts || exit 1;
+    eval "$SUDO \"fc-cache -vf ~/.fonts\"" || exit 1;
 
     echo
     echo "Action succesfully applied"
@@ -102,7 +103,7 @@ function uninstall(){
     uninstallBundle nerdtree-git-plugin
 
     echo "Updating font cache."
-    sudo fc-cache -vf ~/.fonts || exit 1;
+    eval "$SUDO \"fc-cache -vf ~/.fonts\"" || exit 1;
    
     echo
     echo Note that dependecies installed through apt-get and vim-addon-manager are not automatically removed.
@@ -229,7 +230,7 @@ function installDepends()
     if [ -z "$DEPENDS" ]; then
         echo "All libraries are already installed."       
     else
-        sudo apt-get install -y $(echo "$DEPENDS" | tr '\n' ' ') || exit 1;
+        eval "$SUDO \"apt-get install -y $(echo "$DEPENDS" | tr '\n' ' ')\"" || exit 1;
     fi
 }
 
