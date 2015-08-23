@@ -71,7 +71,7 @@ nmap <leader>b :Ex %:p:h/<cr>
 nmap <leader>m :make<cr>
 
 " Open nerdtree
-nmap <leader>t :NERDTree<cr>
+nmap <leader>t :NERDTreeToggle<cr>
 
 " Buffer navigation
 nmap <leader>k :bnext<cr>
