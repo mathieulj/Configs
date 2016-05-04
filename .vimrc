@@ -201,3 +201,25 @@ syntax enable
 set background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Encrypted password file helpers
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! EncodeFcnt()
+	call inputsave()
+	let pass = input('Enter password:')
+	call inputrestore()
+
+	:w !openssl enc -aes-256-cbc -pass 'pass:'.pass -out %:t
+endfunction
+
+function! DecodeFcnt()
+	call inputsave()
+	let pass = input('Enter password:')
+	call inputrestore()
+
+	:1,$d|0r !openssl enc -aes-256-cbc -d -pass 'pass:'.pass -in %:t
+endfunction
+
+:command! Encode :call EncodeFcnt()
+:command! Decode :call DecodeFcnt()
